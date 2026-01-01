@@ -1,0 +1,149 @@
+<mujoco model="Elephant Trunk">
+    <compiler angle="degree" coordinate="local" inertiafromgeom="true"/>
+
+    <option timestep="0.002" integrator="implicit" gravity="0 0 -9.81">
+        <flag energy="enable"/>
+    </option>
+
+    <asset>
+        <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0 0 0" width="512" height="512"/>
+        <texture name="texplane" type="2d" builtin="checker" rgb1=".2 .3 .4" rgb2=".1 .2 .3" width="512" height="512" mark="none"/>
+        <material name="matplane" reflectance="0.3" texture="texplane" texrepeat="1 1" texuniform="true"/>
+    </asset>
+
+    <default>
+        <joint stiffness="100.0" damping="10.0" armature="0.05" limited="true" range="-9 9"/>
+        <tendon rgba="0.8 0.8 0.8 0.5"/>
+        <geom density="1500" rgba="0.8 0.2 0.2 1"/>
+        <motor ctrlrange="-1 1" gear="500"/>
+    </default>
+
+    <visual>
+        <headlight ambient="0.4 0.4 0.4" diffuse="0.8 0.8 0.8" specular="0.1 0.1 0.1"/>
+        <quality shadowsize="0"/>
+    </visual>
+
+    <worldbody>
+        <light directional="true" pos="0 0 5" dir="0 0 -1"/>
+        <geom name="floor" pos="0 0 0" size="0 0 .25" type="plane" material="matplane"/>
+
+        <!-- Base: Cube & Semi-transparent -->
+        <body name="base" pos="0 0 0.1">
+            <geom name="base_geom" type="box" size="0.05 0.05 0.05" rgba="0.5 0.5 0.5 0.4"/>
+            <camera name="side" pos="0.5 -1.0 0.2" xyaxes="1 0 0 0 0 1"/>
+            
+            <!-- Proximal Segments (1-5) - Horizontal +X -->
+            <body name="p1" pos="0.05 0 0">
+                <joint name="p1_pitch" type="hinge" axis="0 1 0" pos="0 0 0"/>
+                <joint name="p1_yaw" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                <geom name="p1_geom" type="capsule" size="0.02" fromto="0 0 0 0.04 0 0" rgba="0.8 0.2 0.2 1"/>
+                <!-- Sites for tendons -->
+                <site name="p1_s1" pos="0.04 0.02 0"/> <site name="p1_s2" pos="0.04 -0.02 0"/>
+                <site name="p1_s3" pos="0.04 0 0.02"/> <site name="p1_s4" pos="0.04 0 -0.02"/>
+                
+                <body name="p2" pos="0.04 0 0">
+                    <joint name="p2_pitch" type="hinge" axis="0 1 0" pos="0 0 0"/>
+                    <joint name="p2_yaw" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                    <geom name="p2_geom" type="capsule" size="0.02" fromto="0 0 0 0.04 0 0" rgba="0.8 0.2 0.2 1"/>
+                    <site name="p2_s1" pos="0.04 0.02 0"/> <site name="p2_s2" pos="0.04 -0.02 0"/>
+                    <site name="p2_s3" pos="0.04 0 0.02"/> <site name="p2_s4" pos="0.04 0 -0.02"/>
+
+                    <body name="p3" pos="0.04 0 0">
+                        <joint name="p3_pitch" type="hinge" axis="0 1 0" pos="0 0 0"/>
+                        <joint name="p3_yaw" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                        <geom name="p3_geom" type="capsule" size="0.02" fromto="0 0 0 0.04 0 0" rgba="0.8 0.2 0.2 1"/>
+                        <site name="p3_s1" pos="0.04 0.02 0"/> <site name="p3_s2" pos="0.04 -0.02 0"/>
+                        <site name="p3_s3" pos="0.04 0 0.02"/> <site name="p3_s4" pos="0.04 0 -0.02"/>
+
+                        <body name="p4" pos="0.04 0 0">
+                            <joint name="p4_pitch" type="hinge" axis="0 1 0" pos="0 0 0"/>
+                            <joint name="p4_yaw" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                            <geom name="p4_geom" type="capsule" size="0.02" fromto="0 0 0 0.04 0 0" rgba="0.8 0.2 0.2 1"/>
+                            <site name="p4_s1" pos="0.04 0.02 0"/> <site name="p4_s2" pos="0.04 -0.02 0"/>
+                            <site name="p4_s3" pos="0.04 0 0.02"/> <site name="p4_s4" pos="0.04 0 -0.02"/>
+
+                            <body name="p5" pos="0.04 0 0">
+                                <joint name="p5_pitch" type="hinge" axis="0 1 0" pos="0 0 0"/>
+                                <joint name="p5_yaw" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                                <geom name="p5_geom" type="capsule" size="0.02" fromto="0 0 0 0.04 0 0" rgba="0.8 0.2 0.2 1"/>
+                                <site name="p_tip1" pos="0.04 0.02 0"/> <site name="p_tip2" pos="0.04 -0.02 0"/>
+                                <site name="p_tip3" pos="0.04 0 0.02"/> <site name="p_tip4" pos="0.04 0 -0.02"/>
+                                <site name="p5_s1" pos="0.04 0.02 0"/> <site name="p5_s2" pos="0.04 -0.02 0"/>
+                                <site name="p5_s3" pos="0.04 0 0.02"/> <site name="p5_s4" pos="0.04 0 -0.02"/>
+                                
+                                <!-- Distal Segments (6-10) -->
+                                <body name="d6" pos="0.04 0 0">
+                                    <joint name="d6_pitch" type="hinge" axis="0 1 0" pos="0 0 0"/>
+                                    <joint name="d6_yaw" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                                    <geom name="d6_geom" type="capsule" size="0.015" fromto="0 0 0 0.04 0 0" rgba="0.2 0.2 0.8 1"/>
+                                    <site name="d6_s1" pos="0.04 0.015 0"/> <site name="d6_s2" pos="0.04 -0.015 0"/>
+                                    <site name="d6_s3" pos="0.04 0 0.015"/> <site name="d6_s4" pos="0.04 0 -0.015"/>
+
+                                    <body name="d7" pos="0.04 0 0">
+                                        <joint name="d7_pitch" type="hinge" axis="0 1 0" pos="0 0 0"/>
+                                        <joint name="d7_yaw" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                                        <geom name="d7_geom" type="capsule" size="0.015" fromto="0 0 0 0.04 0 0" rgba="0.2 0.2 0.8 1"/>
+                                        <site name="d7_s1" pos="0.04 0.015 0"/> <site name="d7_s2" pos="0.04 -0.015 0"/>
+                                        <site name="d7_s3" pos="0.04 0 0.015"/> <site name="d7_s4" pos="0.04 0 -0.015"/>
+
+                                        <body name="d8" pos="0.04 0 0">
+                                            <joint name="d8_pitch" type="hinge" axis="0 1 0" pos="0 0 0"/>
+                                            <joint name="d8_yaw" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                                            <geom name="d8_geom" type="capsule" size="0.015" fromto="0 0 0 0.04 0 0" rgba="0.2 0.2 0.8 1"/>
+                                            <site name="d8_s1" pos="0.04 0.015 0"/> <site name="d8_s2" pos="0.04 -0.015 0"/>
+                                            <site name="d8_s3" pos="0.04 0 0.015"/> <site name="d8_s4" pos="0.04 0 -0.015"/>
+
+                                            <body name="d9" pos="0.04 0 0">
+                                                <joint name="d9_pitch" type="hinge" axis="0 1 0" pos="0 0 0"/>
+                                                <joint name="d9_yaw" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                                                <geom name="d9_geom" type="capsule" size="0.015" fromto="0 0 0 0.04 0 0" rgba="0.2 0.2 0.8 1"/>
+                                                <site name="d9_s1" pos="0.04 0.015 0"/> <site name="d9_s2" pos="0.04 -0.015 0"/>
+                                                <site name="d9_s3" pos="0.04 0 0.015"/> <site name="d9_s4" pos="0.04 0 -0.015"/>
+
+                                                <body name="d10" pos="0.04 0 0">
+                                                    <joint name="d10_pitch" type="hinge" axis="0 1 0" pos="0 0 0"/>
+                                                    <joint name="d10_yaw" type="hinge" axis="0 0 1" pos="0 0 0"/>
+                                                    <geom name="d10_geom" type="capsule" size="0.015" fromto="0 0 0 0.04 0 0" rgba="0.2 0.2 0.8 1"/>
+                                                    <site name="d_tip1" pos="0.04 0.015 0"/> <site name="d_tip2" pos="0.04 -0.015 0"/>
+                                                    <site name="d_tip3" pos="0.04 0 0.015"/> <site name="d_tip4" pos="0.04 0 -0.015"/>
+                                                </body>
+                                            </body>
+                                        </body>
+                                    </body>
+                                </body>
+                            </body>
+                        </body>
+                    </body>
+                </body>
+            </body>
+        </body>
+    </worldbody>
+
+    <tendon>
+        <!-- Proximal Tendons -->
+        <spatial name="tp1" width="0.002"> <site site="p_tip1"/> <site site="p4_s1"/> <site site="p3_s1"/> <site site="p2_s1"/> <site site="p1_s1"/> </spatial>
+        <spatial name="tp2" width="0.002"> <site site="p_tip2"/> <site site="p4_s2"/> <site site="p3_s2"/> <site site="p2_s2"/> <site site="p1_s2"/> </spatial>
+        <spatial name="tp3" width="0.002"> <site site="p_tip3"/> <site site="p4_s3"/> <site site="p3_s3"/> <site site="p2_s3"/> <site site="p1_s3"/> </spatial>
+        <spatial name="tp4" width="0.002"> <site site="p_tip4"/> <site site="p4_s4"/> <site site="p3_s4"/> <site site="p2_s4"/> <site site="p1_s4"/> </spatial>
+
+        <!-- Distal Tendons -->
+        <spatial name="td1" width="0.002"> <site site="d_tip1"/> <site site="d9_s1"/> <site site="d8_s1"/> <site site="d7_s1"/> <site site="d6_s1"/> <site site="p5_s1"/> <site site="p_tip1"/> <site site="p4_s1"/> <site site="p3_s1"/> <site site="p2_s1"/> <site site="p1_s1"/> </spatial>
+        <spatial name="td2" width="0.002"> <site site="d_tip2"/> <site site="d9_s2"/> <site site="d8_s2"/> <site site="d7_s2"/> <site site="d6_s2"/> <site site="p5_s2"/> <site site="p_tip2"/> <site site="p4_s2"/> <site site="p3_s2"/> <site site="p2_s2"/> <site site="p1_s2"/> </spatial>
+        <spatial name="td3" width="0.002"> <site site="d_tip3"/> <site site="d9_s3"/> <site site="d8_s3"/> <site site="d7_s3"/> <site site="d6_s3"/> <site site="p5_s3"/> <site site="p_tip3"/> <site site="p4_s3"/> <site site="p3_s3"/> <site site="p2_s3"/> <site site="p1_s3"/> </spatial>
+        <spatial name="td4" width="0.002"> <site site="d_tip4"/> <site site="d9_s4"/> <site site="d8_s4"/> <site site="d7_s4"/> <site site="d6_s4"/> <site site="p5_s4"/> <site site="p_tip4"/> <site site="p4_s4"/> <site site="p3_s4"/> <site site="p2_s4"/> <site site="p1_s4"/> </spatial>
+    </tendon>
+
+    <actuator>
+        <!-- Proximal Segment (P) -->
+        <motor name="prox_yaw_p"   tendon="tp1"/>
+        <motor name="prox_yaw_n"   tendon="tp2"/>
+        <motor name="prox_pitch_p" tendon="tp3"/>
+        <motor name="prox_pitch_n" tendon="tp4"/>
+        
+        <!-- Distal Segment (D) -->
+        <motor name="dist_yaw_p"   tendon="td1"/>
+        <motor name="dist_yaw_n"   tendon="td2"/>
+        <motor name="dist_pitch_p" tendon="td3"/>
+        <motor name="dist_pitch_n" tendon="td4"/>
+    </actuator>
+</mujoco>

@@ -12,7 +12,7 @@
     </asset>
 
     <default>
-        <joint stiffness="100.0" damping="10.0" armature="0.05" limited="true" range="-9 9"/>
+        <joint stiffness="100.0" damping="10.0" armature="0.05" limited="true" range="-12 12"/>
         <tendon rgba="0.8 0.8 0.8 0.5"/>
         <geom density="1500" rgba="0.8 0.2 0.2 1"/>
         <motor ctrlrange="-1 1" gear="500"/>

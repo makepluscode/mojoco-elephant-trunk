@@ -14,7 +14,7 @@ class ElephantTrunkController:
         # Target Angles: [prox_pitch, prox_yaw, dist_pitch, dist_yaw] (Radians)
         self.target_angles = np.zeros(4)
         self.step_size = 0.05
-        self.limit = 0.785  # Approx 45 degrees
+        self.limit = 1.047  # Approx 60 degrees
 
         # Physical Parameters
         self.coupling_coeff = 0.85

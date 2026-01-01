@@ -14,12 +14,11 @@ A MuJoCo simulation of a 10-segment (2-stage) hyper-redundant continuum robot, r
 
 | Key | Action |
 |-----|--------|
-| **I / K** | Proximal Pitch (Up / Down) [Max: ±60°] |
-| **J / L** | Proximal Yaw (Left / Right) [Max: ±60°] |
-| **↑ / ↓** | Distal Pitch (Up / Down) [Max: ±60°] |
-| **← / →** | Distal Yaw (Left / Right) [Max: ±60°] |
-| **R** | Reset all segment angles to zero |
-| **Space** | Print current target angles to console |
+| **W / S** | X-Axis (Forward / Backward) |
+| **A / D** | Y-Axis (Left / Right) |
+| **Q / E** | Z-Axis (Up / Down) |
+| **Space** | Stop motion and print status |
+| **R** | Reset all angles to zero |
 
 ## Project Structure
 - `elephant_trunk.xml`: MuJoCo MJCF model defining the robot's physical structure.
